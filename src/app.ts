@@ -1,14 +1,15 @@
 import cors from 'cors'
 import express, { Application, urlencoded } from 'express'
 import globalErrorHandler from './app/midlewires/globalErrorHanler'
+import { BookRoutes } from './app/modules/books/book.router'
 
 const app: Application = express()
 app.use(cors())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
 
-//Application routes
-// app.use('/api/v1/books',)
+// Application routes
+app.use('/api/v1/books',BookRoutes)
 
 //testing route
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
