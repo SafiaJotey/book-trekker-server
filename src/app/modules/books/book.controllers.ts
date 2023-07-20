@@ -1,13 +1,8 @@
-
-
 import { NextFunction, Request, Response } from 'express'
-import pick from '../../../shared/pick'
-import { paginationFields } from '../../constant/pagination'
 
-import { BookServices } from './book.services'
-import { IBook } from './book.interface'
 import sendResponse from '../../../Interfaces/sendresponse'
-import { bookFilterableFields } from './book.constant'
+import { IBook } from './book.interface'
+import { BookServices } from './book.services'
 
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,19 +19,50 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
     next(err)
   }
 }
+const getSingleBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params
+
+    const result = await BookServices.getSingleBook(id)
+    res.status(200).json({
+      success: true,
+      message: 'successfully get a book!',
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 const getBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const filters = pick(req.query, bookFilterableFields)
-    const paginationOptions = pick(req.query, paginationFields)
-    const result = await BookServices.getBooks(filters, paginationOptions)
-   
-  sendResponse<IBook[]>(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Students fetched successfully !',
-    meta: result.meta,
-    data: result.data,
-  });
+    const result = await BookServices.getBooks()
+
+    sendResponse<IBook[]>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Books fetched successfully !',
+    
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+const getRecentBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await BookServices.getRecentBooks()
+
+    sendResponse<IBook[]>(res, {
+      statusCode: 200,
+      success: true,
+      message: '!0 recent books fetched successfully !',
+    
+      data: result,
+    })
   } catch (err) {
     next(err)
   }
@@ -44,4 +70,6 @@ const getBooks = async (req: Request, res: Response, next: NextFunction) => {
 export const BookControllers = {
   createBook,
   getBooks,
+  getSingleBook,
+  getRecentBooks
 }
