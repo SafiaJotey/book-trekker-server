@@ -6,6 +6,7 @@ router.post('/add-book', BookControllers.createBook)
 
 router.get('/recent', BookControllers.getRecentBooks)
 router.get('/', BookControllers.getBooks)
+router.post('/', BookControllers.addTowishlist)
 router.get('/:id', BookControllers.getSingleBook)
 
 export const BookRoutes = router

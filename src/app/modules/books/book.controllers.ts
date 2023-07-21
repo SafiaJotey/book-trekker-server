@@ -19,6 +19,25 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
     next(err)
   }
 }
+
+const addTowishlist = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { ...wishList } = req.body
+
+    const resullt = await BookServices.createBook(wishList)
+    res.status(200).json({
+      success: true,
+      message: 'successfully add to wishlist!',
+      data: resullt,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 const getSingleBook = async (
   req: Request,
   res: Response,
@@ -45,14 +64,18 @@ const getBooks = async (req: Request, res: Response, next: NextFunction) => {
       statusCode: 200,
       success: true,
       message: 'Books fetched successfully !',
-    
+
       data: result,
     })
   } catch (err) {
     next(err)
   }
 }
-const getRecentBooks = async (req: Request, res: Response, next: NextFunction) => {
+const getRecentBooks = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const result = await BookServices.getRecentBooks()
 
@@ -60,7 +83,7 @@ const getRecentBooks = async (req: Request, res: Response, next: NextFunction) =
       statusCode: 200,
       success: true,
       message: '!0 recent books fetched successfully !',
-    
+
       data: result,
     })
   } catch (err) {
@@ -71,5 +94,6 @@ export const BookControllers = {
   createBook,
   getBooks,
   getSingleBook,
-  getRecentBooks
+  getRecentBooks,
+  addTowishlist 
 }

@@ -1,9 +1,16 @@
 import ApiError from '../../../error/ApiError'
-import { IBook } from './book.interface'
+import { IBook, IWishlist } from './book.interface'
 import { Book } from './book.model'
 
 const createBook = async (book: IBook): Promise<IBook | null> => {
   const newBook = await Book.create(book)
+  if (!newBook) {
+    throw new ApiError(440, 'Failed to create new user')
+  }
+  return newBook
+}
+const addTowishlist = async (wishlist: IWishlist ): Promise<IWishlist | null> => {
+  const wishlist = await Book.create(wishlist)
   if (!newBook) {
     throw new ApiError(440, 'Failed to create new user')
   }
@@ -30,4 +37,5 @@ export const BookServices = {
   getBooks,
   getSingleBook,
   getRecentBooks,
+  addTowishlist 
 }

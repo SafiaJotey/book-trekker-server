@@ -14,6 +14,19 @@ export type IBook = {
     comment: string
   }[]
 }
+export type IWishlist = {
+  email:string
+  title: string
+  author: string
+  genre: string
+  publication_date: string
+  image: string
+  reviews?: {
+    reviewer: string
+    rating: number
+    comment: string
+  }[]
+}
 
 export type IBookFilters = {
   searchTerm?: string;

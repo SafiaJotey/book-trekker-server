@@ -1,7 +1,8 @@
 import cors from 'cors'
 import express, { Application, urlencoded } from 'express'
 import globalErrorHandler from './app/midlewires/globalErrorHanler'
-import { BookRoutes } from './app/modules/books/book.router'
+import { BookRoutes } from './app/modules/books/book.route'
+import { UserRoutes } from './app/modules/user/user.route'
 
 const app: Application = express()
 app.use(cors())
@@ -10,6 +11,7 @@ app.use(urlencoded({ extended: true }))
 
 // Application routes
 app.use('/api/v1/books',BookRoutes)
+app.use('/api/v1/users',UserRoutes)
 
 //testing route
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
