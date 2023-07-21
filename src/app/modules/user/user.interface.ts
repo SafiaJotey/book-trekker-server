@@ -5,7 +5,7 @@ export type IUser = {
   lastName: string
   email: string
   password: string
-  //   reviews?: {
+
   //     reviewer: string
   //     rating: number
   //     comment: string
