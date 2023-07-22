@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 
 import { Schema, model } from 'mongoose'
+import { Book } from '../books/book.model'
+import { User } from '../user/user.model'
 import { IWishlist, WishlistModel } from './wishlist.interface'
-import { User } from '../../user/user.model'
-import { Book } from '../book.model'
 
 //schema for user
 const wishlistSchema = new Schema<IWishlist>(

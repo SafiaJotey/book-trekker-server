@@ -20,24 +20,6 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-const addTowishlist = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { ...wishList } = req.body
-
-    const resullt = await BookServices.createBook(wishList)
-    res.status(200).json({
-      success: true,
-      message: 'successfully add to wishlist!',
-      data: resullt,
-    })
-  } catch (err) {
-    next(err)
-  }
-}
 const getSingleBook = async (
   req: Request,
   res: Response,
@@ -90,10 +72,41 @@ const getRecentBooks = async (
     next(err)
   }
 }
+const updateBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await BookServices.updateBook(req.params.id, req.body)
+
+    sendResponse<IBook>(res, {
+      statusCode: 200,
+      success: true,
+      message: '!0 recent books fetched successfully !',
+
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await BookServices.deleteBook(req.params.id)
+
+    sendResponse<IBook>(res, {
+      statusCode: 200,
+      success: true,
+      message: '!0 recent books fetched successfully !',
+
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 export const BookControllers = {
   createBook,
   getBooks,
   getSingleBook,
   getRecentBooks,
-  addTowishlist 
+  deleteBook,
+  updateBook,
 }

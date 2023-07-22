@@ -9,7 +9,13 @@ const createUser = async (book: IUser): Promise<IUser | null> => {
   }
   return newUser
 }
+const getUser = async (email: string): Promise<IUser | null> => {
+  const user = await User.findOne({ email: email })
+
+  return user
+}
 
 export const UserServices = {
   createUser,
+  getUser,
 }

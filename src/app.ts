@@ -2,8 +2,9 @@ import cors from 'cors'
 import express, { Application, urlencoded } from 'express'
 import globalErrorHandler from './app/midlewires/globalErrorHanler'
 import { BookRoutes } from './app/modules/books/book.route'
-import { WishlistRoutes } from './app/modules/books/wishlist/wishlist.route'
+import { ReadingRoutes } from './app/modules/reading/reading.route'
 import { UserRoutes } from './app/modules/user/user.route'
+import { WishlistRoutes } from './app/modules/wishlist/wishlist.route'
 
 const app: Application = express()
 app.use(cors())
@@ -14,6 +15,7 @@ app.use(urlencoded({ extended: true }))
 app.use('/api/v1/books', BookRoutes)
 app.use('/api/v1/users', UserRoutes)
 app.use('/api/v1/wishlist', WishlistRoutes)
+app.use('/api/v1/reading', ReadingRoutes)
 
 //testing route
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {

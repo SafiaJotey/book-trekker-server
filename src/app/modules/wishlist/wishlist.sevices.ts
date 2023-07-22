@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
-import { IId } from '../../../../Interfaces/referenceId'
-import ApiError from '../../../../error/ApiError'
-import { User } from '../../user/user.model'
-import { Book } from '../book.model'
+import { IId } from '../../../Interfaces/referenceId'
+import ApiError from '../../../error/ApiError'
+
+import { Book } from '../books/book.model'
+import { User } from '../user/user.model'
 import { IWishlist } from './wishlist.interface'
 import { Wishlist } from './wishlist.model'
 
@@ -59,7 +60,26 @@ const addTowishlist = async (
 
   return newWishlistAllData
 }
+const getWishlist = async (userId: string): Promise<IWishlist[] | null> => {
+  const wishlist = await Wishlist.find({ user: userId }).populate([
+    {
+      path: 'user',
+    },
+    {
+      path: 'book',
+    },
+  ])
+
+  return wishlist
+}
+const removeBookFromList = async (id: string): Promise<IWishlist | null> => {
+  const result = await Wishlist.findByIdAndDelete({ _id: id }).populate('user')
+
+  return result
+}
 
 export const WishlistServices = {
   addTowishlist,
+  getWishlist,
+  removeBookFromList,
 }

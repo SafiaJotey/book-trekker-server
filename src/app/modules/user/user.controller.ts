@@ -21,7 +21,21 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await UserServices.getUser(req.params.email)
+    sendResponse<IUser>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Succesfully get an user',
+      data: user,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 
 export const UserControllers = {
-  createUser
+  createUser,
+  getUser,
 }
