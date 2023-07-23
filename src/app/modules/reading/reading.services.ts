@@ -13,14 +13,14 @@ const addToReading = async (
   let newReadingAllData = null
   const session = await mongoose.startSession()
   try {
+    session.startTransaction();
     // fetching buyer cow and seller data for the specific transaction
     const userData = await User.findOne({ _id: userID })
     const bookData = await Book.findOne({ _id: bookID })
     if (!userData || !bookData) {
       throw new ApiError(400, 'Invalid Request!')
     }
-    session.startTransaction()
-
+   
     // creating  order data for the new order
     const readingData = {
       user: userData?._id,
@@ -59,16 +59,31 @@ const addToReading = async (
 
   return newReadingAllData
 }
-const removeBookFromList = async (
-    id: string,
+const removeBookFromList = async (id: string): Promise<IReading | null> => {
+  const result = await Reading.findByIdAndDelete({ _id: id }).populate('user')
+
+  return result
+}
+const updateToCompleted = async (id: string): Promise<IReading | null> => {
   
-  ): Promise<IReading| null> => {
-  
-      const result = await Reading.findByIdAndDelete({ _id: id }).populate('user')
-    
-    return result
-  }
-  
+
+  const result = await Reading.findByIdAndUpdate({book:id },
+    { completed: true },
+    {
+      new: true,
+    }
+  ).populate([
+    {
+      path: 'user',
+    },
+    {
+      path: 'book',
+    },
+  ])
+
+  return result
+}
+
 const getReading = async (userId: string): Promise<IReading[] | null> => {
   const reading = await Reading.find({ user: userId }).populate([
     {
@@ -84,5 +99,6 @@ const getReading = async (userId: string): Promise<IReading[] | null> => {
 export const ReadingServices = {
   addToReading,
   getReading,
-  removeBookFromList
+  removeBookFromList,
+  updateToCompleted,
 }

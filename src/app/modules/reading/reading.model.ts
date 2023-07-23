@@ -8,6 +8,7 @@ const readingSchema = new Schema<IReading>(
   {
     user: { type: Schema.Types.ObjectId, ref: User, required: true },
     book: { type: Schema.Types.ObjectId, ref: Book, required: true },
+    completed: { type: Boolean, default: false },
   },
   {
     timestamps: true,

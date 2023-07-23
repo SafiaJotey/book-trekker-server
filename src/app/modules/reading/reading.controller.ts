@@ -22,15 +22,22 @@ const addToReadinglist = async (
   }
 }
 const removeBookFromList = async (req: Request, res: Response) => {
-  const result = await ReadingServices.removeBookFromList(
-    req.params.id,
-  
-  )
+  const result = await ReadingServices.removeBookFromList(req.params.id)
 
   sendResponse<IReading>(res, {
     statusCode: 200,
     success: true,
     message: 'successfully delete a cow!',
+    data: result,
+  })
+}
+const updateToCompleted = async (req: Request, res: Response) => {
+  const result = await ReadingServices.updateToCompleted(req.params.id)
+
+  sendResponse<IReading>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'successfully updated to completed!',
     data: result,
   })
 }
@@ -57,4 +64,5 @@ export const ReadingControllers = {
   removeBookFromList,
   addToReadinglist,
   getReadinglist,
+  updateToCompleted,
 }

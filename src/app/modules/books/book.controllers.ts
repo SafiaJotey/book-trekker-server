@@ -7,7 +7,6 @@ import { BookServices } from './book.services'
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { ...book } = req.body
-    console.log(book)
 
     const newBook = await BookServices.createBook(book)
     res.status(200).json({
@@ -20,6 +19,20 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const updateBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params
+
+    const result = await BookServices.updateBook(id, req.body)
+    res.status(200).json({
+      success: true,
+      message: 'successfully update a book!',
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 const getSingleBook = async (
   req: Request,
   res: Response,
@@ -72,21 +85,7 @@ const getRecentBooks = async (
     next(err)
   }
 }
-const updateBook = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const result = await BookServices.updateBook(req.params.id, req.body)
 
-    sendResponse<IBook>(res, {
-      statusCode: 200,
-      success: true,
-      message: '!0 recent books fetched successfully !',
-
-      data: result,
-    })
-  } catch (err) {
-    next(err)
-  }
-}
 const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await BookServices.deleteBook(req.params.id)
@@ -94,7 +93,7 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
     sendResponse<IBook>(res, {
       statusCode: 200,
       success: true,
-      message: '!0 recent books fetched successfully !',
+      message: 'book deleted successfully !',
 
       data: result,
     })
@@ -108,5 +107,5 @@ export const BookControllers = {
   getSingleBook,
   getRecentBooks,
   deleteBook,
-  updateBook,
+  updateBooks,
 }

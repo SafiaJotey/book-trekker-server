@@ -15,6 +15,7 @@ const getSingleBook = async (id: string): Promise<IBook | null> => {
 
   return result
 }
+
 const getBooks = async (): Promise<IBook[] | null> => {
   const result = await Book.find({})
 
@@ -30,14 +31,22 @@ const updateBook = async (
   id: string,
   payload: Partial<IBook>
 ): Promise<IBook | null> => {
-  const result = await Book.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-  })
+  let result
+  const findBook = await Book.findOne({ _id: id }).populate('user')
+  
+
+  if (findBook && findBook?.user?._id == payload?.user) {
+    result = await Book.findOneAndUpdate({ _id: id }, payload, {
+      new: true,
+    }).populate('user')
+  } else {
+    throw new ApiError(403, 'Forbidden')
+  }
 
   return result
 }
 const deleteBook = async (id: string): Promise<IBook | null> => {
-  const result = await Book.findByIdAndDelete({ _id: id }).populate('seller')
+  const result = await Book.findByIdAndDelete({ _id: id })
 
   return result
 }

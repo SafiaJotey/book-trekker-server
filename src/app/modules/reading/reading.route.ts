@@ -5,9 +5,7 @@ const router = express.Router()
 router.post('/add-to-readinglist', ReadingControllers.addToReadinglist)
 router.delete('/:id', ReadingControllers.removeBookFromList)
 
-// router.get('/recent', BookControllers.getRecentBooks)
-// router.get('/', BookControllers.getBooks)
-// router.post('/', BookControllers.addTowishlist)
+router.patch('/edit/:id', ReadingControllers.updateToCompleted)
 router.get('/:id', ReadingControllers.getReadinglist)
 
 export const ReadingRoutes = router

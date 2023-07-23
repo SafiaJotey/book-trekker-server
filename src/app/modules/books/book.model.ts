@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { BookModel, IBook } from './book.interface'
+import { User } from '../user/user.model'
 // Create a new Model type that knows about IUserMethods...
 
 //  Creating a Schema for users
@@ -17,6 +18,7 @@ const bookSchema = new Schema<IBook>(
         comment: { type: String },
       },
     ],
+   user: { type: Schema.Types.ObjectId, ref: User},
   },
   {
     timestamps: true,

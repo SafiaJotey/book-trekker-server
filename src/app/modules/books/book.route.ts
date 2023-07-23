@@ -6,7 +6,7 @@ router.post('/add-book', BookControllers.createBook)
 
 router.get('/recent', BookControllers.getRecentBooks)
 router.get('/', BookControllers.getBooks)
-router.patch('/:id', BookControllers.updateBook)
+router.patch('/edit/:id', BookControllers.updateBooks)
 router.delete('/:id', BookControllers.deleteBook)
 router.get('/:id', BookControllers.getSingleBook)
 
