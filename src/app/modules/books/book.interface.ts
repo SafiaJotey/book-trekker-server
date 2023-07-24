@@ -5,7 +5,6 @@ import { IId } from '../../../Interfaces/referenceId'
 import { IUser } from '../user/user.interface'
 
 export type IBook = {
-
   title: string
   author: string
   genre: string
@@ -17,6 +16,11 @@ export type IBook = {
     comment: string
   }[]
   user: IId | IUser
+}
+export type IReview = {
+  reviewer: string
+  rating: number
+  comment: string
 }
 
 export type IBookFilters = {

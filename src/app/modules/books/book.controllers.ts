@@ -18,6 +18,19 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
     next(err)
   }
 }
+const reviewBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const newBook = await BookServices.reviewBook(req.params.id, req.body)
+    console.log(newBook)
+    res.status(200).json({
+      success: true,
+      message: 'successfully add a new book!',
+      data: newBook,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 
 const updateBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -108,4 +121,5 @@ export const BookControllers = {
   getRecentBooks,
   deleteBook,
   updateBooks,
+  reviewBook,
 }

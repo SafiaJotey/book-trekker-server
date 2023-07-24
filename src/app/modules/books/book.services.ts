@@ -1,5 +1,5 @@
 import ApiError from '../../../error/ApiError'
-import { IBook } from './book.interface'
+import { IBook, IReview } from './book.interface'
 import { Book } from './book.model'
 
 const createBook = async (book: IBook): Promise<IBook | null> => {
@@ -8,6 +8,28 @@ const createBook = async (book: IBook): Promise<IBook | null> => {
     throw new ApiError(440, 'Failed to create new user')
   }
   return newBook
+}
+const reviewBook = async (
+  id: string,
+  payload: IReview
+): Promise<IBook | null> => {
+  const newBook = await Book.findById({ _id: id })
+  if (!newBook) {
+    throw new ApiError(440, 'Failed to find book')
+  }
+  if (!newBook.reviews) {
+    newBook.reviews = []
+  }
+  newBook.reviews.push(payload)
+  const result = await Book.findOneAndUpdate(
+    { _id: id },
+    { reviews: newBook?.reviews },
+    {
+      new: true,
+    }
+  ).populate('user')
+
+  return result
 }
 
 const getSingleBook = async (id: string): Promise<IBook | null> => {
@@ -33,7 +55,6 @@ const updateBook = async (
 ): Promise<IBook | null> => {
   let result
   const findBook = await Book.findOne({ _id: id }).populate('user')
-  
 
   if (findBook && findBook?.user?._id == payload?.user) {
     result = await Book.findOneAndUpdate({ _id: id }, payload, {
@@ -58,4 +79,5 @@ export const BookServices = {
   getRecentBooks,
   updateBook,
   deleteBook,
+  reviewBook,
 }

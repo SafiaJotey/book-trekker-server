@@ -1,16 +1,16 @@
+import { Completed } from './completeReading.model';
 import mongoose from 'mongoose'
 import { IId } from '../../../Interfaces/referenceId'
 import ApiError from '../../../error/ApiError'
 import { Book } from '../books/book.model'
 import { User } from '../user/user.model'
-import { IReading } from './reading.interface'
-import { Reading } from './reading.model'
+import { IComplete } from './completeReading.interface'
 
-const addToReading = async (
+const  addToaddToCompletedlist = async (
   userID: IId,
   bookID: IId
-): Promise<IReading | null> => {
-  let newReadingAllData = null
+): Promise<IComplete | null> => {
+  let newCompletedAllData = null
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
@@ -22,17 +22,18 @@ const addToReading = async (
     }
 
     // creating  order data for the new order
-    const readingData = {
+    const completeData = {
       user: userData?._id,
       book: bookData?._id,
     }
     // creating new order
-    const newReading = await Reading.create([readingData], { session })
-    newReadingAllData = newReading[0]
+    const newCompleted = await  Completed.create([completeData], { session })
+
     // throwing error if order not created
-    if (!newReading) {
+    if (!newCompleted ) {
       throw new ApiError(400, 'Invalid request!')
     }
+    newCompletedAllData = newCompleted[0]
     //commit and endig transaction
     await session.commitTransaction()
   } catch (error) {
@@ -43,10 +44,10 @@ const addToReading = async (
     throw error
   }
 
-  if (newReadingAllData) {
+  if (newCompletedAllData) {
     //finding the order data and populating all ref fields to send response
-    newReadingAllData = await Reading.findOne({
-      _id: newReadingAllData._id,
+    newCompletedAllData = await Completed.findOne({
+      _id: newCompletedAllData._id,
     }).populate([
       {
         path: 'user',
@@ -56,17 +57,17 @@ const addToReading = async (
       },
     ])
   }
-
-  return newReadingAllData
+console.log(newCompletedAllData)
+  return newCompletedAllData
 }
-const removeBookFromList = async (id: string): Promise<IReading | null> => {
-  const result = await Reading.findByIdAndDelete({ _id: id }).populate('user')
+const removeBookFromList = async (id: string): Promise<IComplete | null> => {
+  const result = await Completed.findByIdAndDelete({ _id: id }).populate('user')
 
   return result
 }
 
-const getReading = async (userId: string): Promise<IReading[] | null> => {
-  const reading = await Reading.find({ user: userId }).populate([
+const   getcompleted = async (userId: string): Promise<IComplete[] | null> => {
+  const reading = await Completed.find({ user: userId }).populate([
     {
       path: 'user',
     },
@@ -77,8 +78,9 @@ const getReading = async (userId: string): Promise<IReading[] | null> => {
 
   return reading
 }
-export const ReadingServices = {
-  addToReading,
-  getReading,
+export const CompletedServices = {
+  addToaddToCompletedlist,
+
   removeBookFromList,
+  getcompleted
 }

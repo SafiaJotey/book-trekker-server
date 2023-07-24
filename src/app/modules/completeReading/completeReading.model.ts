@@ -1,13 +1,15 @@
 import { Schema, model } from 'mongoose'
 import { Book } from '../books/book.model'
 import { User } from '../user/user.model'
-import { IReading, ReadingModel } from './reading.interface'
+import { CompletedModel, IComplete } from './completeReading.interface'
+
 
 //schema for user
-const readingSchema = new Schema<IReading>(
+const completedSchema = new Schema<IComplete>(
   {
     user: { type: Schema.Types.ObjectId, ref: User, required: true },
     book: { type: Schema.Types.ObjectId, ref: Book, required: true },
+
   },
   {
     timestamps: true,
@@ -16,4 +18,4 @@ const readingSchema = new Schema<IReading>(
 
 //model for user
 
-export const Reading = model<IReading, ReadingModel>('reading', readingSchema)
+export const Completed= model<IComplete,CompletedModel>('complete',  completedSchema)

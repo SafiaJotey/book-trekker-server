@@ -2,13 +2,13 @@
 
 import { Model } from 'mongoose'
 import { IId } from '../../../Interfaces/referenceId'
-import { IUser } from '../user/user.interface'
 import { IBook } from '../books/book.interface'
+import { IUser } from '../user/user.interface'
 
-export type IReading = {
+export type IComplete = {
   book?: IId | IBook
   user?: IId | IUser
-
+  completed?: boolean
 }
 
-export type ReadingModel = Model<IReading, Record<string, unknown>>
+export type  CompletedModel = Model<IComplete, Record<string, unknown>>
