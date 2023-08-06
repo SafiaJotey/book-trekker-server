@@ -90,7 +90,7 @@ const getRecentBooks = async (
     sendResponse<IBook[]>(res, {
       statusCode: 200,
       success: true,
-      message: '!0 recent books fetched successfully !',
+      message: 'recent books fetched successfully !',
 
       data: result,
     })

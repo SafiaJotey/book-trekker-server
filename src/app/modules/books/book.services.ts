@@ -44,7 +44,7 @@ const getBooks = async (): Promise<IBook[] | null> => {
   return result
 }
 const getRecentBooks = async (): Promise<IBook[] | null> => {
-  const result = await Book.find({}).sort({ createdAt: -1 }).limit(10)
+  const result = await Book.find({}).sort({ createdAt: -1 }).limit(8)
 
   return result
 }

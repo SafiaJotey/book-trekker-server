@@ -29,13 +29,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importStar(require("express"));
 const globalErrorHanler_1 = __importDefault(require("./app/midlewires/globalErrorHanler"));
-const book_router_1 = require("./app/modules/books/book.router");
+const book_route_1 = require("./app/modules/books/book.route");
+const completeReading_route_1 = require("./app/modules/completeReading/completeReading.route");
+const reading_route_1 = require("./app/modules/reading/reading.route");
+const user_route_1 = require("./app/modules/user/user.route");
+const wishlist_route_1 = require("./app/modules/wishlist/wishlist.route");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 // Application routes
-app.use('/api/v1/books', book_router_1.BookRoutes);
+app.use('/api/v1/books', book_route_1.BookRoutes);
+app.use('/api/v1/users', user_route_1.UserRoutes);
+app.use('/api/v1/wishlist', wishlist_route_1.WishlistRoutes);
+app.use('/api/v1/reading', reading_route_1.ReadingRoutes);
+app.use('/api/v1/completed', completeReading_route_1.CompletedRoutes);
 //testing route
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
 //   throw new ApiError(400, 'orebaabaa erroorr!')

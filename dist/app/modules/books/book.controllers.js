@@ -29,12 +29,39 @@ const book_services_1 = require("./book.services");
 const createBook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const book = __rest(req.body, []);
-        console.log(book);
         const newBook = yield book_services_1.BookServices.createBook(book);
         res.status(200).json({
             success: true,
             message: 'successfully add a new book!',
             data: newBook,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const reviewBook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const newBook = yield book_services_1.BookServices.reviewBook(req.params.id, req.body);
+        console.log(newBook);
+        res.status(200).json({
+            success: true,
+            message: 'successfully add a new book!',
+            data: newBook,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const updateBooks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const result = yield book_services_1.BookServices.updateBook(id, req.body);
+        res.status(200).json({
+            success: true,
+            message: 'successfully update a book!',
+            data: result,
         });
     }
     catch (err) {
@@ -83,9 +110,26 @@ const getRecentBooks = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         next(err);
     }
 });
+const deleteBook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield book_services_1.BookServices.deleteBook(req.params.id);
+        (0, sendresponse_1.default)(res, {
+            statusCode: 200,
+            success: true,
+            message: 'book deleted successfully !',
+            data: result,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+});
 exports.BookControllers = {
     createBook,
     getBooks,
     getSingleBook,
-    getRecentBooks
+    getRecentBooks,
+    deleteBook,
+    updateBooks,
+    reviewBook,
 };
