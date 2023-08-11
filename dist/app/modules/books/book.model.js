@@ -10,7 +10,8 @@ const bookSchema = new mongoose_1.Schema({
     author: { type: String, required: true },
     genre: { type: String, required: true },
     publication_date: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: Object, required: true },
+    bookPdf: { type: Object, required: true },
     reviews: [
         {
             reviewer: { type: String },

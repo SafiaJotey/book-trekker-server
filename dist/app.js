@@ -38,19 +38,13 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
+app.use('/', express_1.default.static('upload'));
+app.use('/upload', express_1.default.static(__dirname + '/upload'));
 // Application routes
 app.use('/api/v1/books', book_route_1.BookRoutes);
 app.use('/api/v1/users', user_route_1.UserRoutes);
 app.use('/api/v1/wishlist', wishlist_route_1.WishlistRoutes);
 app.use('/api/v1/reading', reading_route_1.ReadingRoutes);
 app.use('/api/v1/completed', completeReading_route_1.CompletedRoutes);
-//testing route
-// app.get('/', (req: Request, res: Response, next: NextFunction) => {
-//   throw new ApiError(400, 'orebaabaa erroorr!')
-//   // throw new Error('Testing Error')
-//   // // next('errroorrr')
-//   // Promise.reject(new Error('Unhandled Rejection'))
-// })
-//global error handler
 app.use(globalErrorHanler_1.default);
 exports.default = app;

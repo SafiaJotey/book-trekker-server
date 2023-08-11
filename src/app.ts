@@ -20,14 +20,7 @@ app.use('/api/v1/wishlist', WishlistRoutes)
 app.use('/api/v1/reading', ReadingRoutes)
 app.use('/api/v1/completed', CompletedRoutes)
 
-//testing route
-// app.get('/', (req: Request, res: Response, next: NextFunction) => {
-//   throw new ApiError(400, 'orebaabaa erroorr!')
-//   // throw new Error('Testing Error')
-//   // // next('errroorrr')
-//   // Promise.reject(new Error('Unhandled Rejection'))
-// })
-//global error handler
+
 app.use(globalErrorHandler)
 
 export default app

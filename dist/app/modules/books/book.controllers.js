@@ -29,11 +29,15 @@ const book_services_1 = require("./book.services");
 const createBook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const book = __rest(req.body, []);
-        const newBook = yield book_services_1.BookServices.createBook(book);
+        const uploadedFiles = req.files;
+        const { image, bookPdf } = uploadedFiles || [];
+        const newBook = Object.assign(Object.assign({}, book), { image: image[0], bookPdf: bookPdf[0] });
+        console.log(newBook);
+        const result = yield book_services_1.BookServices.createBook(newBook);
         res.status(200).json({
             success: true,
             message: 'successfully add a new book!',
-            data: newBook,
+            data: result,
         });
     }
     catch (err) {
