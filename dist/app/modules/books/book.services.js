@@ -45,7 +45,7 @@ const getBooks = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getRecentBooks = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield book_model_1.Book.find({}).sort({ createdAt: -1 }).limit(10);
+    const result = yield book_model_1.Book.find({}).sort({ createdAt: -1 }).limit(8);
     return result;
 });
 const updateBook = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {

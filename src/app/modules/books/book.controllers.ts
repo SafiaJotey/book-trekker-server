@@ -3,16 +3,23 @@ import { NextFunction, Request, Response } from 'express'
 import sendResponse from '../../../Interfaces/sendresponse'
 import { IBook } from './book.interface'
 import { BookServices } from './book.services'
+type UploadedFiles = {
+  [fieldname: string]: Express.Multer.File[]
+}
 
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { ...book } = req.body
+    const uploadedFiles = req.files as UploadedFiles
+    const { image, bookPdf } = uploadedFiles || []
 
-    const newBook = await BookServices.createBook(book)
+    const newBook = { ...book, image: image[0], bookPdf: bookPdf[0] }
+    console.log(newBook)
+    const result = await BookServices.createBook(newBook)
     res.status(200).json({
       success: true,
       message: 'successfully add a new book!',
-      data: newBook,
+      data: result,
     })
   } catch (err) {
     next(err)

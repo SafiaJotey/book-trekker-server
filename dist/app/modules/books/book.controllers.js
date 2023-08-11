@@ -102,7 +102,7 @@ const getRecentBooks = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         (0, sendresponse_1.default)(res, {
             statusCode: 200,
             success: true,
-            message: '!0 recent books fetched successfully !',
+            message: 'recent books fetched successfully !',
             data: result,
         });
     }

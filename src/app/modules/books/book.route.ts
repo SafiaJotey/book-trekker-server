@@ -1,8 +1,17 @@
 import express from 'express'
+
+import { uplodHelper } from '../../../shared/uploadHelper'
 import { BookControllers } from './book.controllers'
 
 const router = express.Router()
-router.post('/add-book', BookControllers.createBook)
+router.post(
+  '/add-book',
+  uplodHelper.uploadFile.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'bookPdf', maxCount: 1 },
+  ]),
+  BookControllers.createBook
+)
 
 router.get('/recent', BookControllers.getRecentBooks)
 router.get('/', BookControllers.getBooks)

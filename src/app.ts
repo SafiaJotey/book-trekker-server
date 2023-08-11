@@ -11,7 +11,8 @@ const app: Application = express()
 app.use(cors())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
-
+app.use('/', express.static('upload'))
+app.use('/upload', express.static(__dirname + '/upload'))
 // Application routes
 app.use('/api/v1/books', BookRoutes)
 app.use('/api/v1/users', UserRoutes)
