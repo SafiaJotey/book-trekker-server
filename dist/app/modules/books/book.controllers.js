@@ -32,7 +32,7 @@ const createBook = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const uploadedFiles = req.files;
         const { image, bookPdf } = uploadedFiles || [];
         const newBook = Object.assign(Object.assign({}, book), { image: image[0], bookPdf: bookPdf[0] });
-        console.log(newBook);
+        // console.log(newBook)
         const result = yield book_services_1.BookServices.createBook(newBook);
         res.status(200).json({
             success: true,
@@ -47,7 +47,7 @@ const createBook = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 const reviewBook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newBook = yield book_services_1.BookServices.reviewBook(req.params.id, req.body);
-        console.log(newBook);
+        // console.log(newBook)
         res.status(200).json({
             success: true,
             message: 'successfully add a new book!',

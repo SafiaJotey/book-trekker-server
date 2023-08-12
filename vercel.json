@@ -18,6 +18,16 @@
     {
       "src": "/(.+\\.[a-z]+)$",
       "dest": "/upload/$1"
+    },
+    {
+      "src": "/api/v1/users/test@test.com",
+      "methods": ["GET"],
+      "dest": "dist/server.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://book-trekker-350ef.web.app",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
     }
   ]
 }
