@@ -12,16 +12,6 @@
   ],
   "routes": [
     {
-      "src": "/api/v1/users/:email",
-      "methods": ["GET"],
-      "dest": "dist/server.js",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://book-trekker-350ef.web.app",
-        "Access-Control-Allow-Methods": "GET",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
-    },
-    {
       "src": "/((?!.*\\.\\w+$).*)",
       "dest": "dist/server.js"
     },
