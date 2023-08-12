@@ -8,12 +8,7 @@ import { UserRoutes } from './app/modules/user/user.route'
 import { WishlistRoutes } from './app/modules/wishlist/wishlist.route'
 
 const app: Application = express()
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  })
-)
+app.use(cors())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
 app.use('/', express.static('upload'))
