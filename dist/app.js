@@ -37,6 +37,7 @@ const wishlist_route_1 = require("./app/modules/wishlist/wishlist.route");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     origin: '*',
+    methods: ['GET', 'POST'],
 }));
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
