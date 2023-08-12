@@ -8,7 +8,11 @@ import { UserRoutes } from './app/modules/user/user.route'
 import { WishlistRoutes } from './app/modules/wishlist/wishlist.route'
 
 const app: Application = express()
-app.use(cors())
+app.use(
+  cors({
+    origin: '*',
+  })
+)
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
 app.use('/', express.static('upload'))
@@ -19,7 +23,6 @@ app.use('/api/v1/users', UserRoutes)
 app.use('/api/v1/wishlist', WishlistRoutes)
 app.use('/api/v1/reading', ReadingRoutes)
 app.use('/api/v1/completed', CompletedRoutes)
-
 
 app.use(globalErrorHandler)
 
