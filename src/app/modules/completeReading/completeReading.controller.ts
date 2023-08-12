@@ -10,7 +10,7 @@ const addToCompletedlist = async (
 ) => {
   try {
     const { userId, bookId } = req.body
-    console.log(req.body)
+    // console.log(req.body)
     const resullt = await CompletedServices.addToaddToCompletedlist(
       userId,
       bookId

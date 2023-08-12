@@ -1,12 +1,12 @@
-import { Completed } from './completeReading.model';
 import mongoose from 'mongoose'
 import { IId } from '../../../Interfaces/referenceId'
 import ApiError from '../../../error/ApiError'
 import { Book } from '../books/book.model'
 import { User } from '../user/user.model'
 import { IComplete } from './completeReading.interface'
+import { Completed } from './completeReading.model'
 
-const  addToaddToCompletedlist = async (
+const addToaddToCompletedlist = async (
   userID: IId,
   bookID: IId
 ): Promise<IComplete | null> => {
@@ -27,10 +27,10 @@ const  addToaddToCompletedlist = async (
       book: bookData?._id,
     }
     // creating new order
-    const newCompleted = await  Completed.create([completeData], { session })
+    const newCompleted = await Completed.create([completeData], { session })
 
     // throwing error if order not created
-    if (!newCompleted ) {
+    if (!newCompleted) {
       throw new ApiError(400, 'Invalid request!')
     }
     newCompletedAllData = newCompleted[0]
@@ -57,7 +57,7 @@ const  addToaddToCompletedlist = async (
       },
     ])
   }
-console.log(newCompletedAllData)
+  // console.log(newCompletedAllData)
   return newCompletedAllData
 }
 const removeBookFromList = async (id: string): Promise<IComplete | null> => {
@@ -66,7 +66,7 @@ const removeBookFromList = async (id: string): Promise<IComplete | null> => {
   return result
 }
 
-const   getcompleted = async (userId: string): Promise<IComplete[] | null> => {
+const getcompleted = async (userId: string): Promise<IComplete[] | null> => {
   const reading = await Completed.find({ user: userId }).populate([
     {
       path: 'user',
@@ -82,5 +82,5 @@ export const CompletedServices = {
   addToaddToCompletedlist,
 
   removeBookFromList,
-  getcompleted
+  getcompleted,
 }

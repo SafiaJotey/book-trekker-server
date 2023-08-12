@@ -14,7 +14,7 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
     const { image, bookPdf } = uploadedFiles || []
 
     const newBook = { ...book, image: image[0], bookPdf: bookPdf[0] }
-    console.log(newBook)
+    // console.log(newBook)
     const result = await BookServices.createBook(newBook)
     res.status(200).json({
       success: true,
@@ -28,7 +28,7 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
 const reviewBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newBook = await BookServices.reviewBook(req.params.id, req.body)
-    console.log(newBook)
+    // console.log(newBook)
     res.status(200).json({
       success: true,
       message: 'successfully add a new book!',
