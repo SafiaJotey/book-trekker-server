@@ -12,16 +12,12 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "./index.js"
-    },
-    {
-      "src": "/((?!.*\\.\\w+$).*)",
+      "src": "/api/v1/(.*)",
       "dest": "dist/server.js"
     },
     {
-      "src": "/(.+\\.[a-z]+)$",
-      "dest": "/upload/$1"
+      "src": "/(.*)",
+      "dest": "upload/$1"
     }
   ]
 }

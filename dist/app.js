@@ -35,7 +35,9 @@ const reading_route_1 = require("./app/modules/reading/reading.route");
 const user_route_1 = require("./app/modules/user/user.route");
 const wishlist_route_1 = require("./app/modules/wishlist/wishlist.route");
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: '*',
+}));
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use('/', express_1.default.static('upload'));
